@@ -1,8 +1,8 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { PrismaService } from '../common/services/prisma/prisma.service';
 import { RedisService } from '../common/services/redis/redis.service';
-import { Cached } from '../common/decoractors/cached.decorator';
-import { CacheClear } from '../common/decoractors/cache-clear.decorator';
+import { Cached } from '../common/decorators/cached.decorator';
+import { CacheClear } from '../common/decorators/cacheClear.decorator';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
