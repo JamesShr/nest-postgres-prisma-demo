@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["views"]
 }
 
@@ -14,40 +14,45 @@ enum Gender {
 }
 
 model User {
-  id      Int          @id @default(autoincrement())
-  email   String       @unique
-  name    String?
-  posts   Post[]
-  profile UserProfile?
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  name      String?
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime?    @updatedAt @map("updated_at") @db.Timestamptz
+  posts     Post[]
+  profile   UserProfile?
 
   @@map("users")
 }
 
 model UserProfile {
-  id     Int     @id @default(autoincrement())
-  userId Int     @unique @map("user_id")
-  gender Gender?
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        Int       @id @default(autoincrement())
+  userId    Int       @unique @map("user_id")
+  gender    Gender?
+  bio       String?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("user_profile")
 }
 
 model Post {
-  id       Int    @id @default(autoincrement())
-  title    String @default("untitled")
-  content  String @default("no content")
-  authorId Int?   @map("author_id")
-  author   User?  @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  tags     Tag[]  @relation("PostToTag")
+  id        Int       @id @default(autoincrement())
+  title     String    @default("untitled")
+  content   String    @default("no content")
+  authorId  Int?      @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz
+  author    User?     @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  tags      Tag[]     @relation("PostToTag")
 
   @@map("posts")
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  posts Post[] @relation("PostToTag")
+  name      String   @id @unique
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  posts     Post[]   @relation("PostToTag")
 
   @@map("tags")
 }
@@ -66,6 +71,6 @@ view UserPostCount {
   userId    Int @map("user_id")
   postCount Int @map("post_count")
 
-  @@map("user_post_count")
   @@unique([userId])
+  @@map("user_post_count")
 }

@@ -1,0 +1,13 @@
+-- AlterTable
+ALTER TABLE "posts" ADD COLUMN     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "updated_at" TIMESTAMPTZ;
+
+-- AlterTable
+ALTER TABLE "tags" ADD COLUMN     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "user_profile" ADD COLUMN     "updated_at" TIMESTAMPTZ;
+
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "updated_at" TIMESTAMPTZ;

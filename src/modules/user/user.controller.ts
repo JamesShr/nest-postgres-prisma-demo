@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
   Post,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -18,8 +20,15 @@ export class UserController {
 
   @Get()
   @UseInterceptors(PagingInterceptor)
-  async getUsers() {
-    return this.userService.findAll();
+  async getUsers(
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+    @Query('name') name: string,
+  ) {
+    return this.userService.findAll({
+      query: { name: name || undefined },
+      paging: { limit: parseInt(limit) || 10, page: parseInt(page) || 1 },
+    });
   }
 
   @Post()
@@ -41,6 +50,12 @@ export class UserController {
     @Body() data: Prisma.UserUpdateInput,
   ) {
     return this.userService.updateOne(parseInt(id), data);
+  }
+
+  @Delete(':id')
+  @UseInterceptors(OkInterceptor)
+  async deleteUser(@Param('id') id: string) {
+    return this.userService.deleteOne(parseInt(id));
   }
 
   @Get('post-count')

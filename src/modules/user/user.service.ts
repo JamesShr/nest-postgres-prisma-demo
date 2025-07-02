@@ -4,6 +4,11 @@ import { RedisService } from '../common/services/redis/redis.service';
 import { Cached } from '../common/decorators/cached.decorator';
 import { CacheClear } from '../common/decorators/cacheClear.decorator';
 import { Prisma } from '@prisma/client';
+import {
+  buildLimitOffset,
+  buildPageQuery,
+  PageQueryDto,
+} from '@/utils/paging/paging';
 
 @Injectable()
 export class UserService implements OnApplicationBootstrap {
@@ -17,8 +22,27 @@ export class UserService implements OnApplicationBootstrap {
     // }, 1000);
   }
 
-  async findAll() {
-    return this.prisma.user.findMany();
+  async findAll(query: { query: { name?: string }; paging: PageQueryDto }) {
+    const page = buildPageQuery(query.paging.page, query.paging.limit);
+    const limitOffset = buildLimitOffset(page);
+    const data = await this.prisma.user.findMany({
+      where: {
+        name: {
+          contains: query.query.name, // like
+        },
+      },
+      skip: limitOffset.offset,
+      take: limitOffset.limit,
+    });
+    const totalCount = await this.prisma.user.count();
+    return {
+      data,
+      paging: {
+        ...query.paging,
+        totalCount,
+        totalPages: Math.ceil(totalCount / query.paging.limit) || 1,
+      },
+    };
   }
 
   async createOne(data: Prisma.UserCreateInput) {
@@ -53,5 +77,12 @@ export class UserService implements OnApplicationBootstrap {
 
   async findPostCount() {
     return this.prisma.userPostCount.findMany();
+  }
+
+  @CacheClear('cache:user')
+  async deleteOne(userId: number) {
+    return this.prisma.user.delete({
+      where: { id: userId },
+    });
   }
 }
