@@ -60,7 +60,13 @@ export class UserController {
 
   @Get('post-count')
   @UseInterceptors(PagingInterceptor)
-  async getPostCount() {
-    return this.userService.findPostCount();
+  async getPostCount(
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    return this.userService.findPostCount({
+      query: {},
+      paging: { limit: parseInt(limit) || 10, page: parseInt(page) || 1 },
+    });
   }
 }

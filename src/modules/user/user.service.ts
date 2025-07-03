@@ -22,17 +22,28 @@ export class UserService implements OnApplicationBootstrap {
     // }, 1000);
   }
 
-  async findAll(query: { query: { name?: string }; paging: PageQueryDto }) {
+  async findAll(query: {
+    query: { name?: string; email?: string };
+    paging: PageQueryDto;
+  }) {
     const page = buildPageQuery(query.paging.page, query.paging.limit);
     const limitOffset = buildLimitOffset(page);
     const data = await this.prisma.user.findMany({
       where: {
         name: {
           contains: query.query.name, // like
+          mode: 'insensitive', // 👈 加上這行即可忽略大小寫
+        },
+        email: {
+          contains: query.query.email,
+          mode: 'insensitive',
         },
       },
       skip: limitOffset.offset,
       take: limitOffset.limit,
+      orderBy: {
+        id: 'desc',
+      },
     });
     const totalCount = await this.prisma.user.count();
     return {
@@ -75,8 +86,32 @@ export class UserService implements OnApplicationBootstrap {
     });
   }
 
-  async findPostCount() {
-    return this.prisma.userPostCount.findMany();
+  async findPostCount(query: {
+    query: { upperLimit?: number; lowerLimit?: number };
+    paging: PageQueryDto;
+  }) {
+    const page = buildPageQuery(query.paging.page, query.paging.limit);
+    const limitOffset = buildLimitOffset(page);
+
+    const data = await this.prisma.userPostCount.findMany({
+      skip: limitOffset.offset,
+      take: limitOffset.limit,
+      where: {
+        postCount: {
+          gte: query.query.upperLimit || 0,
+          lte: query.query.lowerLimit || 0,
+        },
+      },
+    });
+    const totalCount = await this.prisma.userPostCount.count();
+    return {
+      data,
+      paging: {
+        ...query.paging,
+        totalCount,
+        totalPages: Math.ceil(totalCount / query.paging.limit) || 1,
+      },
+    };
   }
 
   @CacheClear('cache:user')

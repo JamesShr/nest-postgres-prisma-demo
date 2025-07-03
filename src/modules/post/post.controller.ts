@@ -23,10 +23,10 @@ export class PostController {
   async getPosts(
     @Query('page') page: string,
     @Query('limit') limit: string,
-    @Query('userId') userId: string,
+    @Query('userIds') userIds: string, //split by ','
   ) {
     return this.postService.findAllByUserId({
-      query: { userId: parseInt(userId) },
+      query: { userIds: userIds?.split(',').map(Number) || [] },
       paging: { page: parseInt(page) || 1, limit: parseInt(limit) || 10 },
     });
   }

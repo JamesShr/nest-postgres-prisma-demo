@@ -21,24 +21,27 @@ export class PostService {
 
   // findAll by userId
   async findAllByUserId(query: {
-    query: { userId: number };
+    query: { userIds: number[] };
     paging: PageQueryDto;
-  }) {
+  }) {  
     const page = buildPageQuery(query.paging.page, query.paging.limit);
     const limitOffset = buildLimitOffset(page);
     const data = await this.prisma.post.findMany({
       where: {
         author: {
-          id: query.query.userId,
+          id: { in: query.query.userIds },
         },
       },
       skip: limitOffset.offset,
       take: limitOffset.limit,
+      orderBy: {
+        id: 'desc',
+      },
     });
     const totalCount = await this.prisma.post.count({
       where: {
         author: {
-          id: query.query.userId,
+          id: { in: query.query.userIds },
         },
       },
     });
