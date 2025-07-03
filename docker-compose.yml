@@ -37,7 +37,6 @@ services:
 
   pgbouncer:
     image: edoburu/pgbouncer
-    container_name: pgbouncer
     ports:
       - "6432:6432"
     volumes:
