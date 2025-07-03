@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: app
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://user:password@192.168.1.11:25432/prisma-test-3?schema=public
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=192.168.1.11
+      - DATABASE_PORT=25432
+      - DATABASE_USERNAME=user
+      - DATABASE_PASSWORD=password
+      - DATABASE_DB=prisma-test-3
+      - DATABASE_SCHEMA=public
+      - REDIS_HOST=192.168.1.11
+      - REDIS_PORT=26379
+      - REDIS_DB=0
+      - REDIS_PASSWORD=password
+      - NODE_ENV=production
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
