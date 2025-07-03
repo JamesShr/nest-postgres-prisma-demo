@@ -7,20 +7,47 @@ services:
     image: app
     environment:
       - PORT=3000
-      - DATABASE_URL=postgresql://user:password@192.168.1.11:25432/prisma-test-3?schema=public
+      - DATABASE_URL=postgresql://user:password@pgbouncer:6432/db
       - DATABASE_TYPE=postgres
-      - DATABASE_HOST=192.168.1.11
-      - DATABASE_PORT=25432
+      - DATABASE_HOST=pgbouncer
+      - DATABASE_PORT=6432
       - DATABASE_USERNAME=user
       - DATABASE_PASSWORD=password
-      - DATABASE_DB=prisma-test-3
+      - DATABASE_DB=db
       - DATABASE_SCHEMA=public
-      - REDIS_HOST=192.168.1.11
-      - REDIS_PORT=26379
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - REDIS_DB=0
       - REDIS_PASSWORD=password
       - NODE_ENV=production
     ports:
       - 3000:3000
+    depends_on:
+      - pgbouncer
+      - redis
+
+  db:
+    image: timescale/timescaledb:latest-pg12
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
     expose:
-      - 3000
+      - 5432
+
+  pgbouncer:
+    image: edoburu/pgbouncer
+    container_name: pgbouncer
+    ports:
+      - "6432:6432"
+    volumes:
+      - ./pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini
+      - ./userlist.txt:/etc/pgbouncer/userlist.txt
+    command: ["pgbouncer", "/etc/pgbouncer/pgbouncer.ini"]
+    depends_on:
+      - db
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379

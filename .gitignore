@@ -37,3 +37,7 @@ lerna-debug.log*
 
 .env
 config/local.js
+
+# pgbouncer
+pgbouncer.ini
+userlist.txt
