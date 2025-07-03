@@ -38,8 +38,8 @@ model UserProfile {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  title     String    @default("untitled")
-  content   String    @default("no content")
+  title     String    @default("untitled") @db.VarChar(255)
+  content   String    @default("no content") @db.Text
   authorId  Int?      @map("author_id")
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
   updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz
