@@ -23,13 +23,15 @@ export class PostService {
   async findAllByUserId(query: {
     query: { userIds: number[] };
     paging: PageQueryDto;
-  }) {  
+  }) {
     const page = buildPageQuery(query.paging.page, query.paging.limit);
     const limitOffset = buildLimitOffset(page);
     const data = await this.prisma.post.findMany({
       where: {
         author: {
-          id: { in: query.query.userIds },
+          id: {
+            in: query.query.userIds?.length ? query.query.userIds : undefined,
+          },
         },
       },
       skip: limitOffset.offset,
@@ -62,6 +64,15 @@ export class PostService {
       where: {
         id,
       },
+      include: {
+        author: true,
+        tags: true,
+        PostApplyTag: {
+          select: {
+            tagId: true,
+          },
+        },
+      },
     });
   }
 
@@ -88,14 +99,35 @@ export class PostService {
   }
 
   // add tag to post
-  async addTagToPost(postId: number, tagName: string) {
-    const tag = await this.tagService.getOne(tagName);
-    if (!tag) {
-      throw new NotFoundException('Tag not found');
-    }
+  async addTagToPost(postIds: number[], tagName: string) {
+    // create transaction
+    const transaction = await this.prisma.$transaction(async (tx) => {
+      // create tag if conflict ignore
+      const tag = await tx.tag.upsert({
+        where: { name: tagName },
+        update: {},
+        create: { name: tagName },
+      });
+
+      // create post apply tag if conflict ignore
+      const postApplyTag = await tx.postApplyTag.createMany({
+        data: postIds.map((postId) => ({ postId, tagId: tag.name })),
+        skipDuplicates: true,
+      });
+
+      return {
+        tag,
+        postApplyTag,
+      };
+    });
+    return transaction;
+  }
+
+  // like post
+  async likePost(id: number) {
     return this.prisma.post.update({
-      where: { id: postId },
-      data: { tags: { connect: { name: tagName } } },
+      where: { id },
+      data: { likes: { increment: 1 } },
     });
   }
 }

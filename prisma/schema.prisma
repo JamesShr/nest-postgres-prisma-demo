@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["views"]
-  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  binaryTargets   = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"] // for docker alpine linux
 }
 
 datasource db {
@@ -38,24 +38,39 @@ model UserProfile {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  title     String    @default("untitled") @db.VarChar(255)
-  content   String    @default("no content") @db.Text
-  authorId  Int?      @map("author_id")
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz
-  author    User?     @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  tags      Tag[]     @relation("PostToTag")
+  id           Int            @id @default(autoincrement())
+  title        String         @default("untitled") @db.VarChar(255)
+  content      String         @default("no content") @db.Text
+  authorId     Int?           @map("author_id")
+  likes        Int            @default(0) @map("likes")
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime?      @updatedAt @map("updated_at") @db.Timestamptz
+  author       User?          @relation(fields: [authorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  tags         Tag[]
+  PostApplyTag PostApplyTag[]
 
   @@map("posts")
 }
 
 model Tag {
-  name      String   @id @unique
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-  posts     Post[]   @relation("PostToTag")
+  name         String         @id @unique
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  posts        Post[]
+  PostApplyTag PostApplyTag[]
 
   @@map("tags")
+}
+
+model PostApplyTag {
+  postId    Int      @map("post_id")
+  tagId     String   @map("tag_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [name], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@id([postId, tagId])
+  @@unique([postId, tagId])
+  @@map("post_apply_tag")
 }
 
 model UserLog {
@@ -71,6 +86,7 @@ model UserLog {
 view UserPostCount {
   userId    Int @map("user_id")
   postCount Int @map("post_count")
+  likeCount Int @map("like_count")
 
   @@unique([userId])
   @@map("user_post_count")

@@ -7,7 +7,7 @@ services:
     image: app
     environment:
       - PORT=3000
-      - DATABASE_URL=postgresql://user:password@pgbouncer:6432/db
+      - DATABASE_URL=postgresql://user:password@pgbouncer:6432/db # remove ?schema=public for pgbouncer 
       - DATABASE_TYPE=postgres
       - DATABASE_HOST=pgbouncer
       - DATABASE_PORT=6432

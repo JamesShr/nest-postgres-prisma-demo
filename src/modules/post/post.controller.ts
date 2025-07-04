@@ -57,4 +57,16 @@ export class PostController {
   async deletePost(@Param('id') id: string) {
     return this.postService.deleteOne(parseInt(id));
   }
+
+  @Post('tag')
+  @UseInterceptors(OkInterceptor)
+  async addTagToPost(@Body() data: { ids: number[]; tag: string }) {
+    return this.postService.addTagToPost(data.ids, data.tag);
+  }
+
+  @Post('like')
+  @UseInterceptors(OkInterceptor)
+  async likePost(@Body() data: { id: number }) {
+    return this.postService.likePost(data.id);
+  }
 }

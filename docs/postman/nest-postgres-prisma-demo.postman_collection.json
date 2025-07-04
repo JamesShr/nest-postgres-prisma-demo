@@ -1,0 +1,1192 @@
+{
+	"info": {
+		"_postman_id": "06adcfbe-4a68-4624-86ee-ca428724684e",
+		"name": "nest-postgres-prisma-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14423541"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user?name=TEST",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "TEST"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "localhost:3000/user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "357"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"165-ir8ts660wr0ItbZN5oTwPrZ2UiY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Jul 2025 10:19:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"email\": \"test-1751276945253@test.com\",\n            \"name\": \"james\"\n        },\n        {\n            \"id\": 2,\n            \"email\": \"test-1751276946252@test.com\",\n            \"name\": \"test-1751276946252\"\n        },\n        {\n            \"id\": 3,\n            \"email\": \"test-1751276947263@test.com\",\n            \"name\": \"test-1751276947263\"\n        },\n        {\n            \"id\": 4,\n            \"email\": \"jamesshr123346@gmail.com\",\n            \"name\": \"james\"\n        }\n    ],\n    \"paging\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalCount\": 4,\n        \"totalPages\": 1\n    },\n    \"message\": \"ok\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test\",\r\n    \"email\":\"test@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"james\",\r\n    \"email\":\"jamesshr12345@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-E3QcUwijUjSRLSWIKX23CfsIes4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Jul 2025 10:19:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 5,\n        \"email\": \"jamesshr12345@gmail.com\",\n        \"name\": \"james\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751451574059\n}"
+						}
+					]
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/user/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get user by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/user/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-A2wV6m3gVcmZign56PrrUJS8HwA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Jul 2025 10:13:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 4,\n        \"email\": \"jamesshr12345@gmail.com\",\n        \"name\": \"james\",\n        \"posts\": []\n    },\n    \"message\": \"ok\",\n    \"time\": 1751451230705\n}"
+						}
+					]
+				},
+				{
+					"name": "update user by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"james\",\r\n    \"email\":\"jamesshr123346@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/user/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update user by id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"james\",\r\n    \"email\":\"jamesshr123346@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/user/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-1cPEqRRxnxMqaZmVE15/BHykUCM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Jul 2025 10:16:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 4,\n        \"email\": \"jamesshr123346@gmail.com\",\n        \"name\": \"james\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751451410676\n}"
+						}
+					]
+				},
+				{
+					"name": "delete user by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete user by id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{userId}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-EaAYFKbB6/s1FT4YIZpF7eNcRkw\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Jul 2025 10:20:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 4,\n        \"email\": \"jamesshr123346@gmail.com\",\n        \"name\": \"james\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751451608939\n}"
+						}
+					]
+				},
+				{
+					"name": "get user post count",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/post-count",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"post-count"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get user post count",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/post-count",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"post-count"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "168"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a8-jio4+O6cNcCj2SMfeEQIvP0AJBI\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 09:46:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"userId\": 1,\n            \"postCount\": 1,\n            \"likeCount\": 4\n        },\n        {\n            \"userId\": 2,\n            \"postCount\": 0,\n            \"likeCount\": 0\n        }\n    ],\n    \"paging\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalCount\": 2,\n        \"totalPages\": 1\n    },\n    \"message\": \"ok\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "get posts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/post",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "userIds",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get posts",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/post",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post"
+									],
+									"query": [
+										{
+											"key": "userIds",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-k9c77321ZaQ2HtcGfx5nJWfqtvU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 06:47:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"test\",\n            \"content\": \"this is a test\",\n            \"authorId\": 1,\n            \"createdAt\": \"2025-07-04T06:42:01.186Z\",\n            \"updatedAt\": \"2025-07-04T06:42:01.186Z\"\n        }\n    ],\n    \"paging\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalCount\": 0,\n        \"totalPages\": 1\n    },\n    \"message\": \"ok\"\n}"
+						}
+					]
+				},
+				{
+					"name": "add post",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"test\",\r\n    \"content\":\"this is a test\",\r\n    \"authorId\":{{userId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"test\",\r\n    \"content\":\"this is a test\",\r\n    \"authorId\":{{userId}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/post",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "186"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ba-j8W2PC0NSDGcqYHbOs+VZ+E6GnM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 06:42:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"test\",\n        \"content\": \"this is a test\",\n        \"authorId\": 1,\n        \"createdAt\": \"2025-07-04T06:42:01.186Z\",\n        \"updatedAt\": \"2025-07-04T06:42:01.186Z\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751611321308\n}"
+						}
+					]
+				},
+				{
+					"name": "get post by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/post/:postId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "{{postId}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get post by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/post/:postId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId",
+											"value": "{{postId}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-/bxjhVxlzh6Kbg1Ms/Af2srIn5c\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 06:52:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"test2\",\n        \"content\": \"this is a test2\",\n        \"authorId\": 1,\n        \"createdAt\": \"2025-07-04T06:42:01.186Z\",\n        \"updatedAt\": \"2025-07-04T06:51:13.089Z\",\n        \"author\": {\n            \"id\": 1,\n            \"email\": \"jamesshr12345@gmail.com\",\n            \"name\": \"james\",\n            \"createdAt\": \"2025-07-04T06:30:50.630Z\",\n            \"updatedAt\": \"2025-07-04T06:30:50.630Z\"\n        },\n        \"PostApplyTag\": []\n    },\n    \"message\": \"ok\",\n    \"time\": 1751611939334\n}"
+						}
+					]
+				},
+				{
+					"name": "update post by post id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"test2\",\r\n    \"content\":\"this is a test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/:postId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "{{postId}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update post by post id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"test2\",\r\n    \"content\":\"this is a test2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/post/:postId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId",
+											"value": "{{postId}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "188"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bc-dWSoYOxJuRF/18oQMeTWeMgdByQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 06:51:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"test2\",\n        \"content\": \"this is a test2\",\n        \"authorId\": 1,\n        \"createdAt\": \"2025-07-04T06:42:01.186Z\",\n        \"updatedAt\": \"2025-07-04T06:51:13.089Z\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751611873125\n}"
+						}
+					]
+				},
+				{
+					"name": "delete post by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/post/:postId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "{{postId}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete post by id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/post/:postId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId",
+											"value": "{{postId}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "188"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bc-vlfE7mpHiaTc0M8uKeTPv8n4H8M\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 06:54:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"test2\",\n        \"content\": \"this is a test2\",\n        \"authorId\": 1,\n        \"createdAt\": \"2025-07-04T06:42:01.186Z\",\n        \"updatedAt\": \"2025-07-04T06:51:13.089Z\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751612068028\n}"
+						}
+					]
+				},
+				{
+					"name": "add tag to posts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\":[{{postId}}],\r\n    \"tag\":\"test1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/tag",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								"tag"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add tag to posts",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ids\":[{{postId}}],\r\n    \"tag\":\"test1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/post/tag",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										"tag"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "135"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"87-RO41AcjDUaluhMHmUFSllNAt5uY\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 08:17:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"tag\": {\n            \"name\": \"test1\",\n            \"createdAt\": \"2025-07-04T08:07:51.332Z\"\n        },\n        \"postApplyTag\": {\n            \"count\": 0\n        }\n    },\n    \"message\": \"ok\",\n    \"time\": 1751617066498\n}"
+						}
+					]
+				},
+				{
+					"name": "add like to post",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":{{postId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/post/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add like to post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":{{postId}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/post/like",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										"like"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "198"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c6-4kEuzBsu+IL/BzF+0bQOjNr8OP4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Jul 2025 09:41:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"title\": \"test2\",\n        \"content\": \"this is a test2\",\n        \"authorId\": 1,\n        \"likes\": 4,\n        \"createdAt\": \"2025-07-04T06:54:01.756Z\",\n        \"updatedAt\": \"2025-07-04T09:41:50.363Z\"\n    },\n    \"message\": \"ok\",\n    \"time\": 1751622110368\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -42,7 +42,7 @@ export class UserService implements OnApplicationBootstrap {
       skip: limitOffset.offset,
       take: limitOffset.limit,
       orderBy: {
-        id: 'desc',
+        createdAt: 'desc',
       },
     });
     const totalCount = await this.prisma.user.count();
@@ -98,8 +98,8 @@ export class UserService implements OnApplicationBootstrap {
       take: limitOffset.limit,
       where: {
         postCount: {
-          gte: query.query.upperLimit || 0,
-          lte: query.query.lowerLimit || 0,
+          gte: query.query.upperLimit,
+          lte: query.query.lowerLimit,
         },
       },
     });

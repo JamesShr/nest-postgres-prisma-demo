@@ -18,6 +18,18 @@ import { PagingInterceptor } from '../common/interceptors/paging.interceptor';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @Get('post-count')
+  @UseInterceptors(PagingInterceptor)
+  async getPostCount(
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    return this.userService.findPostCount({
+      query: {},
+      paging: { limit: parseInt(limit) || 10, page: parseInt(page) || 1 },
+    });
+  }
+  
   @Get()
   @UseInterceptors(PagingInterceptor)
   async getUsers(
@@ -58,15 +70,5 @@ export class UserController {
     return this.userService.deleteOne(parseInt(id));
   }
 
-  @Get('post-count')
-  @UseInterceptors(PagingInterceptor)
-  async getPostCount(
-    @Query('page') page: string,
-    @Query('limit') limit: string,
-  ) {
-    return this.userService.findPostCount({
-      query: {},
-      paging: { limit: parseInt(limit) || 10, page: parseInt(page) || 1 },
-    });
-  }
+ 
 }
